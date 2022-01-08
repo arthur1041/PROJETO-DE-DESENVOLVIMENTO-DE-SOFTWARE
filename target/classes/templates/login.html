@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="uk-height-1-1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Todo App</title>
+<link rel="icon" href="img/favicon.ico">
+<!-- CSS FILES -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body class="uk-height-1-1 uk-cover-container uk-background-secondary">
+
+	<div class="uk-position-cover uk-overlay-primary"></div>
+
+	<div
+		class="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-light uk-position-relative uk-position-z-index">
+		<div class="uk-width-medium uk-padding-medium"
+			uk-scrollspy="cls: uk-animation-fade">
+			<form th:action="@{/login}" method="POST">
+				<fieldset class="uk-fieldset">
+					<div class="uk-margin">
+						<div class="uk-inline uk-width-1-1">
+							<span class="uk-form-icon uk-form-icon-flip"
+								data-uk-icon="icon: user"></span> <input
+								class="uk-input uk-border-pill" required id="email" name="email"
+								placeholder="Usuário" type="text">
+						</div>
+					</div>
+					<div class="uk-margin">
+						<div class="uk-inline uk-width-1-1">
+							<span class="uk-form-icon uk-form-icon-flip"
+								data-uk-icon="icon: lock"></span> <input
+								class="uk-input uk-border-pill" required placeholder="Senha"
+								id="password" name="password" type="password">
+						</div>
+					</div>
+
+					<div class="uk-margin" th:if="${param.error}">
+						<label>Email ou Senha inválidos, tente novamente</label>
+					</div>
+					<div>
+						<span class="text-success" th:utext="${successMessage}" />
+						<span class="text-danger" th:utext="${errorMessage}" />
+					</div>
+					<div class="uk-margin">
+						<button type="submit"
+							class="uk-button uk-button-primary uk-border-pill uk-width-1-1 uk-text-large">LOG
+							IN</button>
+					</div>
+				</fieldset>
+			</form>
+			<div>
+				<div class="uk-text-center">
+					<a class="uk-link-reset uk-text-medium"
+						data-uk-toggle="target: #recover;animation: uk-animation-slide-top-small">Novo usuário?</a>
+				</div>
+				<div class="uk-margin-small-top" id="recover" hidden>
+					<form th:action="@{/registration}" th:object="${user}" method="post">
+
+						<div class="uk-margin-small">
+							<div class="uk-inline uk-width-1-1">
+									<span class="uk-form-icon uk-form-icon-flip"
+									data-uk-icon="icon: mail"></span> <input th:field="*{email}"
+									class="uk-input uk-border-pill" placeholder="E-mail" required
+									type="text">
+							</div>
+						</div>
+						<div class="uk-margin-small">
+							<div class="uk-inline uk-width-1-1">
+								<span class="uk-form-icon uk-form-icon-flip"
+									data-uk-icon="icon: mail"></span> <input th:field="*{password}"
+									class="uk-input uk-border-pill" placeholder="Password" required
+									type="password">
+							</div>
+						</div>
+						<div class="uk-margin-small">
+							<button type="submit"
+								class="uk-button uk-button-primary uk-border-pill uk-width-1-1">Salvar
+								Usuário</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JS FILES -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit-icons.min.js"></script>
+</body>
+</html>

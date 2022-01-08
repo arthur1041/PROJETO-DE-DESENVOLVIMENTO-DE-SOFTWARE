@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Todo Tasks Page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/validation.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+
+		<div class="panel-group" style="margin-top: 40px;">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Bem vindo <span sec:authentication="name"></span>
+
+					<form th:action="@{/logout}" method="get" class="pull-right">
+						<button class="btn-floating btn-danger" type="Submit">Sair</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<h2>
+			<span class="text-success" th:utext="${successMessage}"></span> <span
+				class="text-danger" th:utext="${errorMessage}"></span>
+		</h2>
+
+		<div class="row">
+			<div>
+				<form autocomplete="off" action="#" th:action="@{/saveTask}"
+					enctype="multipart/form-data" th:object="${task}" method="post"
+					class="form-vertical" role="form">
+					<h2>Formulário Cadastro</h2>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label th:if="${#fields.hasErrors('description')}"
+								th:errors="*{description}" class="validation-message"></label> <input
+								type="text" th:field="*{description}"
+								placeholder="Descrição da tarefa" class="form-control" />
+						</div>
+						<div class="col-sm-2">
+							<label th:if="${#fields.hasErrors('dueDate')}"
+								th:errors="*{dueDate}" class="validation-message"></label> <input
+								type="date" th:field="*{dueDate}" class="form-control" />
+						</div>
+						<div class="col-sm-1">
+							<label th:if="${#fields.hasErrors('priority')}"
+								th:errors="*{priority}" class="validation-message"></label> <input
+								type="number" th:field="*{priority}" min="0" max="5"
+								class="form-control" />
+						</div>
+						<div class="col-sm-4">
+							<input type="file" th:name="file" accept="image/png, image/jpeg" />
+						</div>
+						<div class="col-sm-2">
+							<button type="submit" class="btn btn-primary btn-block">Incluir</button>
+						</div>
+					</div>
+				</form>
+				<div class="container" th:fragment="content">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Descrição</th>
+								<th>Data de vencimento</th>
+								<th>Prioridade</th>
+								<th>Editar</th>
+								<th>Apagar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${tasks.empty}">
+								<td colspan="5">Sem tarefas</td>
+							</tr>
+							<tr th:each="task : ${tasks}">
+								<td th:text="${task.description}" />
+								<td th:text="${#dates.format(task.dueDate, 'yyyy-MM-dd')}" />
+								<td th:text="${task.priority}" />
+								<td>
+									<div>
+										<img th:if="${task.file != null}"
+											th:src="@{/download/}+${task.file.id}+'?salvar=false'"></img>
+									</div>
+								</td>
+								<td><a th:href="@{'/editTask/' + ${task.id}}">Editar</a></td>
+								<td><a th:href="@{'/deleteTask/' + ${task.id}}">Apagar</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

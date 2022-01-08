@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: arthu
+Build-Jdk: 15.0.2
+Implementation-Title: task
+Implementation-Version: 1.0.0-RELEASE
+Implementation-Vendor-Id: com.challenge
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/spring-task
+Created-By: Maven Integration for Eclipse
+
