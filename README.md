@@ -1,7 +1,7 @@
 # Módulo de gerenciamento de tarefas do projeto Waterjuice
 
 
-### Prá-requisitos
+### Pré-requisitos
 
 * Java 8
 * Maven 3
